@@ -1,5 +1,5 @@
 # &lt;nvd3-multi-bar-horizontal&gt;
-Multi bar chart element for [Polymer](https://www.polymer-project.org) using [nvd3](http://nvd3.org/). It's part of [nvd3 charting elements](https://github.com/saeidzebardast/nvd3-elements).
+Multi bar horizontal chart element for [Polymer](https://www.polymer-project.org) using [nvd3](http://nvd3.org/). It's part of [nvd3 charting elements](https://github.com/saeidzebardast/nvd3-elements).
 
 ## Install
 
