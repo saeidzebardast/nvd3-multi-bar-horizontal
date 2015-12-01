@@ -1,0 +1,74 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../nvd3-behavior/nvd3-behavior.html">
+
+<!--
+An element to create multi bar horizontal chart using nvd3.
+
+Example:
+
+    <nvd3-multi-bar-horizontal data="[[data]]"></nvd3-multi-bar-horizontal>
+
+Data Format:
+```
+    [{
+      "key": "Series1",
+      "color": "#d62728",
+      "values": [{
+        "label": "Group A",
+        "value": -1.8746444827653
+      }, {
+        "label": "Group B",
+        "value": -8.0961543492239
+      }, {
+        "label": "Group C",
+        "value": -0.57072943117674
+      }]
+    }, {
+      "key": "Series2",
+      "color": "#1f77b4",
+      "values": [{
+        "label": "Group A",
+        "value": 25.307646510375
+      }, {
+        "label": "Group B",
+        "value": 16.756779544553
+      }, {
+        "label": "Group C",
+        "value": 18.451534877007
+      }]
+    }]
+```
+
+@group NVD3 Elements
+@element nvd3-multi-bar-horizontal
+@demo demo/index.html
+@hero hero.svg
+-->
+
+<dom-module id="nvd3-multi-bar-horizontal">
+  <template>
+    <div>
+      <svg id="svg"></svg>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'nvd3-multi-bar-horizontal',
+      behaviors: [NVD3.ChartBehavior],
+
+      attached: function() {
+        this.set('svg', this.$.svg);
+        this.set('chart', nv.models.multiBarHorizontalChart()
+          .x(function(d) {
+            return d.label
+          })
+          .y(function(d) {
+            return d.value
+          }));
+
+        this.generateChart();
+      }
+    });
+  </script>
+</dom-module>
