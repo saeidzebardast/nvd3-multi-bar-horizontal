@@ -11,7 +11,11 @@ bower install nvd3-multi-bar-horizontal
 ### Tag
 
 ```
-<nvd3-multi-bar-horizontal data="[[data]]"></nvd3-multi-bar-horizontal>
+<nvd3-multi-bar-horizontal
+    data="[[data]]"
+    height="100"
+    width="400"
+    show-legend></nvd3-multi-bar-horizontal>
 ```
 
 ### Data Format
