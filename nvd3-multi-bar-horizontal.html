@@ -51,9 +51,7 @@ Data Format:
 
 <dom-module id="nvd3-multi-bar-horizontal">
   <template>
-    <div>
-      <svg id="svg"></svg>
-    </div>
+    <svg></svg>
   </template>
 
   <script>
@@ -173,9 +171,11 @@ Data Format:
         }
       },
 
-      attached: function() {
-        this.set('svg', this.$.svg);
+      ready: function() {
+        this.set('svg', this.$$('svg'));
+      },
 
+      attached: function() {
         if (!this.stopAutoDrawing) {
           this.generateChart();
         }
