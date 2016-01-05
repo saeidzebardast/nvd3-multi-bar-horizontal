@@ -15,6 +15,7 @@ bower install nvd3-multi-bar-horizontal
     data="[[data]]"
     height="100"
     width="400"
+    auto-resize
     show-legend></nvd3-multi-bar-horizontal>
 ```
 
