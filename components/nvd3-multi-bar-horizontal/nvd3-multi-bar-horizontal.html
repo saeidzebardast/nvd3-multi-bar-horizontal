@@ -1,0 +1,211 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../nvd3-behavior/nvd3-behavior.html">
+
+<!--
+An element to create multi bar horizontal chart using nvd3.
+
+Example:
+
+    <nvd3-multi-bar-horizontal
+    data="[[data]]"
+    height="100"
+    width="400"
+    auto-resize
+    show-legend></nvd3-multi-bar-horizontal>
+
+Data Format:
+```
+    [{
+      "key": "Series1",
+      "color": "#d62728",
+      "values": [{
+        "label": "Group A",
+        "value": -1.8746444827653
+      }, {
+        "label": "Group B",
+        "value": -8.0961543492239
+      }, {
+        "label": "Group C",
+        "value": -0.57072943117674
+      }]
+    }, {
+      "key": "Series2",
+      "color": "#1f77b4",
+      "values": [{
+        "label": "Group A",
+        "value": 25.307646510375
+      }, {
+        "label": "Group B",
+        "value": 16.756779544553
+      }, {
+        "label": "Group C",
+        "value": 18.451534877007
+      }]
+    }]
+```
+
+@group NVD3 Elements
+@element nvd3-multi-bar-horizontal
+@demo demo/index.html
+@hero hero.svg
+-->
+
+<dom-module id="nvd3-multi-bar-horizontal">
+  <template>
+    <!-- We need to put svg tag inside a div to set correct margins -->
+    <div>
+      <svg></svg>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'nvd3-multi-bar-horizontal',
+      behaviors: [NVD3.ChartBehavior],
+      properties: {
+        /**
+         * NVD3 chart object.
+         */
+        chart: {
+          type: Object,
+          value: function() {
+            return nv.models.multiBarHorizontalChart()
+              .x(function(d) {
+                return d.label
+              })
+              .y(function(d) {
+                return d.value
+              });
+          }
+        },
+
+        /**
+         * Colors to use for the different data.
+         * If an array is given, it is converted to a function automatically.
+         */
+        color: {
+          type: Array,
+          value: function() {
+            nv.utils.defaultColor();
+          }
+        },
+
+        /**
+         * The height the graph or component created inside the SVG should be made.
+         * Default: The height of the container element (normally the svg itself).
+         */
+        height: {
+          type: Number
+        },
+
+        /**
+         * Object containing the margins for the chart or component.
+         * You can specify only certain margins in the object to change just
+         * those parts.
+         */
+        margin: {
+          type: Object,
+          value: {
+            "left": null,
+            "right": null,
+            "top": null,
+            "bottom": null
+          }
+        },
+
+        /**
+         * Message to display if no data is provided.
+         */
+        noData: {
+          type: String,
+          value: 'No Data Available.'
+        },
+
+        /**
+         * Whether to display the legend or not
+         */
+        showLegend: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * The width the graph or component created inside the SVG should be made.
+         * Default: The width of the container element (normally the svg itself).
+         */
+        width: {
+          type: Number
+        }
+      },
+
+      observers: [
+        '_setColor(color.length)',
+        '_setHeight(height)',
+        '_setMargin(margin.top, margin.right, margin.bottom, margin.left)',
+        '_setNoData(noData)',
+        '_setShowLegend(showLegend)',
+        '_setWidth(width)'
+      ],
+
+      _setColor: function(colorLength) {
+        this.chart.color(this.color);
+      },
+
+      _setHeight: function(height) {
+        if (typeof height === 'number' && height > 0) {
+          this.chart.height(height);
+        }
+      },
+
+      _setMargin: function(marginTop, marginRight, marginBottom, marginLeft) {
+        if (marginTop) {
+          this.chart.margin({
+            "top": marginTop
+          });
+        }
+
+        if (marginRight) {
+          this.chart.margin({
+            "right": marginRight
+          });
+        }
+
+        if (marginBottom) {
+          this.chart.margin({
+            "bottom": marginBottom
+          });
+        }
+
+        if (marginLeft) {
+          this.chart.margin({
+            "left": marginLeft
+          });
+        }
+      },
+
+      _setNoData: function(noData) {
+        this.chart.noData(this.noData);
+      },
+
+      _setShowLegend: function(showLegend) {
+        this.chart.showLegend(this.showLegend);
+      },
+
+      _setWidth: function(width) {
+        if (typeof width === 'number' && width > 0) {
+          this.chart.width(width);
+        }
+      },
+
+      ready: function() {
+        this.set('svg', this.$$('svg'));
+      },
+
+      attached: function() {
+        if (!this.stopAutoDrawing) {
+          this.generateChart();
+        }
+      }
+    });
+  </script>
+</dom-module>
