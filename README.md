@@ -51,5 +51,8 @@ bower install nvd3-multi-bar-horizontal
 }]
 ```
 
+## Demo and Options
+See the [component page](http://saeidzebardast.github.io/d3-bubble) for demo and options.
+
 ## License
 MIT © [Saeid Zebardast](http://zebardast.com)
